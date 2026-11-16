@@ -71,7 +71,11 @@
       </h1>
 
       <div class="burger" data-burger role="img" aria-label="Hamburguesa Crispy 2.0 con doble carne, queso cheddar, bacon y cebolla crocante">
-        <img src="assets/cut/crispy2.webp" alt="" width="760" height="1140" fetchpriority="high">
+        <img class="burger__layer" data-layer="0" src="assets/hero/bun-bottom.webp" alt="" style="left:8%;top:80.43%;width:90.57%" width="634" height="91">
+        <img class="burger__layer" data-layer="1" src="assets/hero/patty-2.webp" alt="" style="left:1%;top:61.94%;width:99%" width="693" height="102">
+        <img class="burger__layer" data-layer="2" src="assets/hero/patty-1.webp" alt="" style="left:0;top:42.58%;width:96.71%" width="677" height="108">
+        <img class="burger__layer" data-layer="3" src="assets/hero/greens.webp" alt="" style="left:11.29%;top:27.74%;width:83.86%" width="587" height="84">
+        <img class="burger__layer" data-layer="4" src="assets/hero/bun-top.webp" alt="" style="left:11.29%;top:0;width:82.71%" width="579" height="143">
       </div>
 
       <div class="stage__meta" data-hero-meta>
@@ -93,7 +97,15 @@
       </button>
       <p class="sticker sticker--rate" data-hero-meta><b>15%</b><span>de descuento<br>en Take App</span></p>
 
-      <p class="stage__end" data-stage-end><span class="script">sencillamente</span> delicioso</p>
+      <!-- Etiquetas del despiece -->
+      <ol class="callouts" aria-label="Qué lleva una Crispy 2.0">
+        <li class="callout callout--r" data-callout="4"><b>01</b> Pan brioche<br>bien tostado</li>
+        <li class="callout callout--l" data-callout="3"><b>02</b> Cebolla crispy,<br>bacon y salsa Billy</li>
+        <li class="callout callout--r" data-callout="2"><b>03</b> Medallón de carne<br>con cheddar fundido</li>
+        <li class="callout callout--l" data-callout="1"><b>04</b> Doble carne.<br>Y más cheddar</li>
+        <li class="callout callout--r" data-callout="0"><b>05</b> Y una base<br>que lo aguanta todo</li>
+      </ol>
+      <p class="stage__end" data-stage-end><span class="script">a capas,</span> como tiene que ser</p>
 
       <div class="scrollhint micro" data-hero-meta aria-hidden="true">Baja y elige <i></i></div>
     </section>

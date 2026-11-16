@@ -1,4 +1,5 @@
-/* Tema Billy Burgers: azul de marca sobre crema. Se carga el último y sobrescribe las variables y ajustes del diseño base. */
+/* Tema Billy Burgers: azul de marca sobre crema. Se carga el último y solo cambia colores, tipografía y proporciones.
+   La estructura y las animaciones son las del diseño base (hero que se despieza, colección horizontal, carta). */
 :root {
   --bone: #FFF1E6;
   --paper: #FFF8F1;
@@ -13,7 +14,7 @@
 }
 
 /* Tipografía: Caprasimo es ancha y se lee mejor en minúsculas y mayúsculas mezcladas */
-.display, .stage__line, .stage__end, .card__name, .card__price, .panel__name, .panel__price, .panel__add, .panel__ghost,
+.display, .stage__line, .stage__end, .callout, .card__name, .card__price, .panel__name, .panel__price, .panel__add, .panel__ghost,
 .how__steps h3, .how__n, .mode-card strong, .tab, .row, .pill, .cta, .ticker__track, .loader__count, .proof__grid dd,
 .sticker__core, .sticker--rate b, .footer__big, .place__big, .drawer__total, .segmented span, .empty .display {
   text-transform: none;
@@ -23,6 +24,7 @@
 .script--big { font-size: 1em; transform: rotate(-4deg); }
 .collection__intro .display { font-size: clamp(3rem, 10.5vh, 9rem); }
 .stage__line { font-size: 22vw; line-height: 1.05; letter-spacing: 0; }
+.callout { font-size: clamp(1rem, 1.7vw, 1.7rem); line-height: 1.12; }
 .panel__name { font-size: clamp(2.4rem, 8vh, 6rem); line-height: 1; }
 .panel__ghost { font-size: clamp(8rem, 30vh, 20rem); letter-spacing: 0; }
 .card__name { font-size: clamp(1.15rem, 1.5vw, 1.6rem); line-height: 1.08; }
@@ -34,7 +36,7 @@
 .footer__big { font-size: 30vw; line-height: 1.05; }
 .row { font-size: clamp(1.05rem, 1.5vw, 1.4rem); }
 .tab { font-size: clamp(1rem, 1.3vw, 1.2rem); }
-.stage__end { font-size: clamp(2.6rem, 8vw, 8rem); }
+.stage__end { font-size: clamp(2.6rem, 8vw, 8rem); line-height: 1.05; }
 .proof__quote p { font: 400 clamp(1.8rem, 4.4vw, 4.4rem)/1.1 var(--font-display); text-transform: none; }
 
 /* Logo: la silueta azul del PNG se pinta con el color del texto */
@@ -50,48 +52,36 @@
 .footer { background: var(--ketchup); color: var(--paper); }
 .footer__big { color: var(--paper); }
 
-/* Hero: la foto del producto sustituye a la hamburguesa por capas */
-.stage { background: var(--bone); }
-.burger { aspect-ratio: 2 / 3; width: min(40vh, 26vw); top: 68%; filter: none; }
-.burger img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: 28px; box-shadow: 0 30px 60px rgba(10, 42, 94, .28); }
-.stage__meta-c { max-width: 300px; }
+/* Hero: la Crispy 2.0 es más ancha que alta, así que el contenedor es apaisado */
+.burger { aspect-ratio: 700 / 465; width: min(64vh, 44vw); top: 64%; }
 .sticker--rate { background: var(--cheddar); box-shadow: 4px 5px 0 var(--ketchup); }
 .sticker--rate b { color: var(--ketchup); }
-.no-motion .stage__end, .no-motion .scrollhint { display: none; }
-
-/* Colección: la foto va dentro de un marco redondeado */
-.panel__img img { border-radius: 26px; filter: none; box-shadow: 0 24px 50px rgba(10, 42, 94, .28); width: auto; max-width: 100%; max-height: 66vh; }
+.stage__meta-c { max-width: 300px; }
 .panel[data-tone="ink"] { --bg: var(--ketchup-deep); }
-
-/* Carta: la foto llena la parte alta de la tarjeta */
-.card__media { padding: 0; }
-.card__media img { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 64%; filter: none; }
-.card:hover .card__media img { transform: scale(1.06); }
 .card { overflow: hidden; }
-.card__media { overflow: hidden; }
-.card__body { padding-top: 12px; }
+.card__body { padding-top: 4px; }
 
-/* Foto a sangre: fondo azul con la foto en un marco */
+/* Foto a sangre: fondo azul con el plato recortado */
 .bleed { background: var(--ketchup); }
-.bleed img { left: auto; right: clamp(16px, 8vw, 160px); top: 7%; width: auto; height: 86%; aspect-ratio: 2 / 3; border-radius: 28px; box-shadow: 0 30px 60px rgba(0, 0, 0, .3); }
+.bleed img { object-fit: contain; object-position: 72% 55%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .3)); }
 .bleed figcaption { font-size: clamp(2.6rem, 8vw, 8rem); text-shadow: none; line-height: 1.05; z-index: 2; }
 
 /* Locales */
 .place__grid { margin-top: clamp(50px, 7vw, 100px); }
 .place__links { display: flex; flex-wrap: wrap; gap: 8px 22px; }
-.place__media img { object-position: 50% 62%; }
+.place__media img { object-fit: contain; object-position: 50% 50%; background: var(--cheddar); padding: 24px; filter: none; }
 
 @media (max-width: 899px) {
   .stage__line { font-size: 30vw; line-height: 1.02; }
   .stage__line[data-title-a] { font-size: 30vw; }
   .stage__line--b { display: block; font-size: 21vw; line-height: 1; color: var(--ketchup); }
-  .burger { top: 62%; width: min(30vh, 54vw); }
+  .burger { top: 60%; width: min(50vh, 80vw); }
+  .callout { width: 28vw; font-size: clamp(.72rem, 3.2vw, .92rem); }
   .display--xl { font-size: 19vw; }
   .collection__intro .display { font-size: 17vw; }
   .panel__name { font-size: 11vw; }
   .panel__ghost { font-size: 40vw; }
   .bleed { height: 70vh; }
-  .bleed img { right: 16px; top: 5%; height: 62%; }
   .bleed figcaption { font-size: 13vw; bottom: 3vh; }
   .footer__big { font-size: 31vw; }
   .loader__logo { width: 76px; height: 74px; }

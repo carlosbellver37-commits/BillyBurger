@@ -48,7 +48,7 @@
 
   /* Intro: los ingredientes caen y se apilan. */
   function intro(onDone) {
-    const photo = document.querySelector('[data-burger]');
+    const layers = $$('.burger__layer');
     const metas = [...document.querySelector('.stage__meta').children];
     const count = document.querySelector('[data-loader-count]');
     const progress = { v: 0 };
@@ -56,7 +56,7 @@
     tl.to(progress, { v: 100, duration: 0.9, ease: 'power2.inOut', onUpdate: () => { count.textContent = Math.round(progress.v); } })
       .to('[data-loader]', { yPercent: -100, duration: 0.7, ease: 'expo.inOut', onComplete: () => document.querySelector('[data-loader]').classList.add('is-done') })
       .from('[data-title-a], [data-title-b]', { yPercent: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: 0.08 }, '-=.35')
-      .from(photo, { y: () => root.innerHeight * 0.5, rotation: -8, opacity: 0, scale: 0.8, duration: 1, ease: 'back.out(1.4)' }, '-=.9')
+      .from(layers, { y: () => -root.innerHeight * 1.1, rotation: () => gsap.utils.random(-14, 14), duration: 0.85, ease: 'bounce.out', stagger: 0.11 }, '-=.9')
       .from(metas, { opacity: 0, y: 14, duration: 0.6, ease: 'power2.out', stagger: 0.05 }, '-=.35')
       .from('.sticker--spin', { scale: 0, rotation: -120, duration: 0.9, ease: 'back.out(1.8)' }, '-=.7')
       .from('.sticker--rate', { scale: 0, duration: 0.6, ease: 'back.out(2.4)' }, '-=.6');
@@ -76,19 +76,43 @@
     });
   }
 
-  /* Escena fijada: la foto crece y gira, el fondo pasa a azul Billy y aparece el lema. */
+  /* Despiece: fondo a rojo, capas separadas con etiquetas y vuelta a montar. */
   function stageTimeline(isDesktop) {
     const stage = document.querySelector('[data-stage]');
+    const burger = document.querySelector('[data-burger]');
+    const openScale = isDesktop ? 0.74 : 0.56;
+    const openTop = isDesktop ? 54 : 52; // % de la altura de pantalla
+    const gap = () => root.innerHeight * (isDesktop ? 0.1 : 0.085);
+    const offsets = [2, 1, 0, -1, -2];
+    const tilt = [-2.5, 2, -1.5, 2.5, -3];
+    const layers = offsets.map((_, i) => document.querySelector(`[data-layer="${i}"]`));
+    /* Altura en pantalla del centro de una capa ya separada, medida desde el centro de la pantalla. */
+    const layerY = (i) => {
+      const fromCentre = layers[i].offsetTop + layers[i].offsetHeight / 2 - burger.offsetHeight / 2;
+      return (fromCentre + offsets[i] * gap()) * openScale + root.innerHeight * (openTop - 50) / 100;
+    };
+
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * 2.2}`, pin: true, scrub: 0.7, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * 3.2}`, pin: true, scrub: 0.7, invalidateOnRefresh: true },
     });
     tl.to('[data-hero-meta]', { autoAlpha: 0, duration: 0.5 }, 0)
       .to('[data-title-a]', { xPercent: -14, autoAlpha: 0.08, duration: 1 }, 0)
       .to('[data-title-b]', { xPercent: 14, autoAlpha: 0.08, duration: 1 }, 0)
-      .to('[data-burger]', { scale: isDesktop ? 1.3 : 1.2, rotation: -3, duration: 1.2, ease: 'power2.inOut' }, 0)
-      .to({}, { duration: 0.4 })
-      .to(stage, { backgroundColor: '#0063C6', duration: 0.8 }, '>')
-      .to('[data-burger]', { scale: isDesktop ? 0.7 : 0.6, rotation: 0, top: isDesktop ? '72%' : '75%', duration: 1 }, '<')
+      .to('[data-burger]', { scale: openScale, top: `${openTop}%`, duration: 1 }, 0);
+
+    layers.forEach((layer, i) => tl.to(layer, { y: () => offsets[i] * gap(), rotation: tilt[i], ease: 'power2.inOut', duration: 1.2 }, 0.1));
+
+    $$('[data-callout]').forEach((c) => {
+      const i = Number(c.dataset.callout);
+      gsap.set(c, { y: () => layerY(i) - c.offsetHeight / 2 });
+      tl.fromTo(c, { autoAlpha: 0, x: c.classList.contains('callout--l') ? -40 : 40 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 0.7 + (4 - i) * 0.2);
+    });
+
+    tl.to({}, { duration: 0.8 })
+      .to('[data-callout]', { autoAlpha: 0, duration: 0.4 })
+      .to(layers, { y: 0, rotation: 0, ease: 'power3.inOut', duration: 1 }, '<')
+      .to(stage, { backgroundColor: '#0063C6', duration: 0.8 }, '<')
+      .to('[data-burger]', { scale: isDesktop ? 0.55 : 0.5, top: isDesktop ? '74%' : '76%', duration: 1 }, '<')
       .fromTo('[data-stage-end]', { autoAlpha: 0, yPercent: -30 }, { autoAlpha: 1, yPercent: -75, duration: 0.8 }, '-=.6')
       .to({}, { duration: 0.5 });
   }
@@ -103,7 +127,7 @@
     });
     $$('[data-panel-item]').forEach((panel) => {
       const anim = { trigger: panel, containerAnimation: move, start: 'left right', end: 'right left', scrub: true };
-      gsap.fromTo(panel.querySelector('[data-panel-img]'), { rotation: -4, xPercent: 10, scale: 0.92 }, { rotation: 3, xPercent: -6, scale: 1.02, ease: 'none', scrollTrigger: anim });
+      gsap.fromTo(panel.querySelector('[data-panel-img]'), { rotation: -14, xPercent: 18, scale: 0.86 }, { rotation: 8, xPercent: -12, scale: 1.04, ease: 'none', scrollTrigger: anim });
       gsap.fromTo(panel.querySelector('.panel__ghost'), { xPercent: 12 }, { xPercent: -22, ease: 'none', scrollTrigger: anim });
     });
   }
