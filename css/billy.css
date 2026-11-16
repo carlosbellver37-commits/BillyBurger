@@ -53,7 +53,7 @@
 .footer__big { color: var(--paper); }
 
 /* Hero: la Crispy 2.0 es más ancha que alta, así que el contenedor es apaisado */
-.burger { aspect-ratio: 696 / 466; width: min(64vh, 44vw); top: 64%; }
+.burger { aspect-ratio: 696 / 454; width: min(64vh, 44vw); top: 64%; }
 .sticker--rate { background: var(--cheddar); box-shadow: 4px 5px 0 var(--ketchup); }
 .sticker--rate b { color: var(--ketchup); }
 .stage__meta-c { max-width: 300px; }
