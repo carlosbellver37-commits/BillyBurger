@@ -45,12 +45,12 @@
   ]);
 
   const peso = (n) => n * 100;
-  const dish = (cat, id, name, price, img, desc, tag) => ({ id, cat, name, cents: peso(price), img, desc: desc || '', groups: [], tag });
+  const dish = (cat, id, name, price, img, desc, tag, was) => ({ id, cat, name, cents: peso(price), img, desc: desc || '', groups: [], tag, wasCents: was ? peso(was) : 0 });
   const drink = (id, name, price, sub) => ({ id, cat: 'bebidas', name, cents: peso(price), img: null, desc: '', groups: [], sub });
 
   const MENU = Object.freeze([
-    dish('ofertas', 'dobledeal', 'Doble Billy Deal', 799, 'doble-deal', 'Perfecto para compartir: dos deliciosas Billys con las mejores papas.', 'Oferta'),
-    dish('ofertas', 'crispy2', 'Crispy 2.0', 450, 'crispy2', 'Llegó la Crispy 2.0: ahora con doble carne y una cebolla aún más crocante y sabrosa que nunca.', 'Nuevo'),
+    dish('ofertas', 'dobledeal', 'Doble Billy Deal', 799, 'doble-deal', 'Perfecto para compartir: dos deliciosas Billys con las mejores papas.', 'Oferta', 1160),
+    dish('ofertas', 'crispy2', 'Crispy 2.0', 450, 'crispy2', 'Llegó la Crispy 2.0: ahora con doble carne y una cebolla aún más crocante y sabrosa que nunca.', 'Nuevo', 490),
 
     dish('combos', 'combo-americana', 'Americana + Papas Fritas', 485, 'combo-americana', 'Medallón de carne, queso cheddar, lechuga, tomate, cebolla y nuestra salsa Billy.'),
     dish('combos', 'combo-crispy', 'Crispy + Papas Fritas', 490, 'combo-crispy', 'Medallón de carne, queso cheddar, bacon y la cebolla crispy más crujiente.'),

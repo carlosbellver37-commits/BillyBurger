@@ -56,7 +56,8 @@
     tl.to(progress, { v: 100, duration: 0.9, ease: 'power2.inOut', onUpdate: () => { count.textContent = Math.round(progress.v); } })
       .to('[data-loader]', { yPercent: -100, duration: 0.7, ease: 'expo.inOut', onComplete: () => document.querySelector('[data-loader]').classList.add('is-done') })
       .from('[data-title-a], [data-title-b]', { yPercent: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: 0.08 }, '-=.35')
-      .from(layers, { y: () => -root.innerHeight * 1.1, rotation: () => gsap.utils.random(-14, 14), duration: 0.85, ease: 'bounce.out', stagger: 0.11 }, '-=.9')
+      // Caída continua y sin rebote: cada capa entra desde arriba con fundido y frena suave al asentarse.
+      .from(layers, { y: () => -root.innerHeight * 0.75, rotation: () => gsap.utils.random(-5, 5), autoAlpha: 0, duration: 1.35, ease: 'power4.out', stagger: 0.12 }, '-=.9')
       .from(metas, { opacity: 0, y: 14, duration: 0.6, ease: 'power2.out', stagger: 0.05 }, '-=.35')
       .from('.sticker--spin', { scale: 0, rotation: -120, duration: 0.9, ease: 'back.out(1.8)' }, '-=.7')
       .from('.sticker--rate', { scale: 0, duration: 0.6, ease: 'back.out(2.4)' }, '-=.6');
@@ -133,6 +134,11 @@
   }
 
   function reveals() {
+    $$('[data-float]').forEach((n, i) => {
+      gsap.fromTo(n, { rotation: i ? 9 : -9, yPercent: i ? 14 : -10 }, { rotation: i ? -6 : 7, yPercent: i ? -14 : 12, ease: 'none', scrollTrigger: { trigger: '.how', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+      gsap.to(n, { y: i ? -14 : 14, duration: 2.6 + i * 0.5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    });
+    $$('.how__n').forEach((n) => gsap.from(n, { scale: 0, rotation: -40, duration: 0.9, ease: 'back.out(2.2)', scrollTrigger: { trigger: n, start: 'top 90%', once: true } }));
     $$('[data-rise]').forEach((n) => gsap.from(n, { y: 50, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: n, start: 'top 88%', once: true } }));
     $$('.display--xl').forEach((n) => gsap.from(n, { yPercent: 18, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: n, start: 'top 90%', once: true } }));
     gsap.fromTo('[data-bleed-img]', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '[data-bleed]', scrub: true } });
@@ -217,7 +223,28 @@
     document.body.classList.remove('is-loading');
     if (lenis) lenis.start();
     ScrollTrigger.refresh();
+    keepScrollInSync();
     goToHash();
+  }
+
+  /* La carta y las fotos cargan imágenes en diferido y la página crece después del primer cálculo:
+     sin recalcular, las escenas fijadas y el final de la página quedan desfasados. Se recalcula
+     (con pausa) solo cuando la altura cambia de verdad, para no entrar en bucle con las escenas fijadas. */
+  function keepScrollInSync() {
+    let lastHeight = document.documentElement.scrollHeight;
+    let timer = 0;
+    const sync = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const height = document.documentElement.scrollHeight;
+        if (Math.abs(height - lastHeight) < 3) return;
+        ScrollTrigger.refresh();
+        lastHeight = document.documentElement.scrollHeight;
+      }, 250);
+    };
+    if ('ResizeObserver' in root) new ResizeObserver(sync).observe(document.body);
+    root.addEventListener('load', sync);
+    document.fonts && document.fonts.ready.then(sync);
   }
 
   function goToHash() {

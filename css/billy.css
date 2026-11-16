@@ -53,7 +53,7 @@
 .footer__big { color: var(--paper); }
 
 /* Hero: la Crispy 2.0 es más ancha que alta, así que el contenedor es apaisado */
-.burger { aspect-ratio: 700 / 465; width: min(64vh, 44vw); top: 64%; }
+.burger { aspect-ratio: 696 / 466; width: min(64vh, 44vw); top: 64%; }
 .sticker--rate { background: var(--cheddar); box-shadow: 4px 5px 0 var(--ketchup); }
 .sticker--rate b { color: var(--ketchup); }
 .stage__meta-c { max-width: 300px; }
@@ -86,3 +86,46 @@
   .footer__big { font-size: 31vw; }
   .loader__logo { width: 76px; height: 74px; }
 }
+
+/* Ofertas: se nota que son ofertas */
+.card--offer { --tone: var(--ketchup); color: #fff; box-shadow: 0 0 0 3px var(--ink); }
+.card--offer .card__desc { color: rgba(255, 255, 255, .86); }
+.card--offer .card__plus { background: #fff; color: var(--ketchup); }
+.card--offer:hover .card__plus { background: var(--ink); color: #fff; }
+.card--offer .card__tag { background: #fff; color: var(--ketchup); font-size: .95rem; padding: 8px 14px; border-radius: 40px; letter-spacing: .04em; transform: rotate(-5deg); animation: wiggle 2.4s var(--ease) infinite; }
+.card--offer .card__price { font-size: 2.1rem; }
+@keyframes wiggle { 0%, 70%, 100% { transform: rotate(-5deg) scale(1); } 80% { transform: rotate(3deg) scale(1.1); } 90% { transform: rotate(-7deg) scale(1.05); } }
+.card__prices { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.card__was, .panel__was { text-decoration: line-through; opacity: .7; font: 500 1rem var(--font-text); }
+.panel__offer { position: absolute; z-index: 3; top: calc(var(--nav-h) + 8px); right: clamp(24px, 4vw, 64px); padding: 10px 18px; background: #fff; color: var(--ketchup); border-radius: 40px; font: 400 clamp(1rem, 2.2vw, 1.5rem) var(--font-display); transform: rotate(5deg); animation: wiggle 2.4s var(--ease) infinite; }
+
+/* Tres toques: tarjetas, números que saltan y platos flotando */
+.how { position: relative; overflow: hidden; }
+.how__title { position: relative; z-index: 2; }
+.how__float { position: absolute; z-index: 1; max-width: none; filter: drop-shadow(0 26px 26px rgba(10, 42, 94, .28)); pointer-events: none; }
+.how__float--a { right: -3vw; top: clamp(30px, 5vw, 90px); width: min(46vw, 640px); }
+.how__float--b { right: clamp(10px, 8vw, 150px); bottom: 18%; width: min(16vw, 220px); }
+.how__steps { position: relative; z-index: 2; }
+.how__steps li {
+  position: relative; background: var(--paper); border: 3px solid var(--ink); border-radius: 22px; padding: 26px 24px 28px;
+  box-shadow: 7px 9px 0 var(--ketchup); transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.how__steps li:nth-child(1) { transform: rotate(-1.6deg); }
+.how__steps li:nth-child(2) { transform: rotate(1.2deg) translateY(14px); }
+.how__steps li:nth-child(3) { transform: rotate(-.8deg); }
+.how__steps li:hover { transform: rotate(0) translateY(-8px); box-shadow: 10px 14px 0 var(--ink); }
+.how__n {
+  display: grid; place-items: center; width: clamp(64px, 6vw, 92px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--ketchup); color: #fff; font-size: clamp(2.2rem, 3.6vw, 3.4rem); line-height: 1; margin-bottom: 14px;
+}
+.how__modes { position: relative; z-index: 2; }
+@media (max-width: 899px) {
+  .how__float--a { width: 78vw; right: -18vw; top: 70px; opacity: .9; }
+  .how__float--b { width: 26vw; right: 6vw; bottom: 38%; }
+  .how__steps { gap: 22px; }
+  .how__n { position: absolute; right: 16px; top: 14px; margin: 0; width: 56px; font-size: 2rem; }
+  .how__steps li:nth-child(n) { transform: none; }
+  .card--offer .card__price { font-size: 1.6rem; }
+}
+
+.grid > .card.card--offer, .grid > .card.card--offer:nth-child(14n + 1) { --tone: var(--ketchup); }

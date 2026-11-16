@@ -24,12 +24,14 @@
   function featuredPanel(item, i) {
     return el('article', { class: 'panel', 'data-tone': TONES[i % TONES.length], 'data-panel-item': '' }, [
       el('span', { class: 'panel__ghost', 'aria-hidden': 'true', text: item.name.split(' ')[0] }),
+      item.wasCents ? el('span', { class: 'panel__offer', text: `Oferta −${Math.round((1 - item.cents / item.wasCents) * 100)}%` }) : null,
       el('p', { class: 'panel__num micro', text: `${String(i + 1).padStart(2, '0')} / ${String(NT.FEATURED.length).padStart(2, '0')}` }),
       el('div', { class: 'panel__copy' }, [
         el('h3', { class: 'panel__name', text: item.name }),
         el('p', { class: 'panel__desc', text: item.desc }),
         el('div', { class: 'panel__buy' }, [
           el('span', { class: 'panel__price', text: money(item.cents) }),
+          item.wasCents ? el('s', { class: 'panel__was', text: money(item.wasCents) }) : null,
           el('button', { class: 'panel__add', type: 'button', 'data-add': item.id, text: 'La quiero', 'aria-label': `Añadir ${item.name}` }),
         ]),
       ]),
@@ -48,14 +50,18 @@
     const media = item.img
       ? el('div', { class: 'card__media' }, [el('img', { src: imgPath(item.img), alt: '', loading: 'lazy' })])
       : el('div', { class: 'card__media card__media--type', 'aria-hidden': 'true', text: item.name.split(' ')[0] });
-    return el('button', { class: 'card', type: 'button', 'data-add': item.id, 'aria-label': `Añadir ${item.name}, ${money(item.cents)}` }, [
-      item.tag ? el('span', { class: 'card__tag', text: item.tag }) : null,
+    const off = item.wasCents ? Math.round((1 - item.cents / item.wasCents) * 100) : 0;
+    return el('button', { class: `card${item.cat === 'ofertas' ? ' card--offer' : ''}`, type: 'button', 'data-add': item.id, 'aria-label': `Añadir ${item.name}, ${money(item.cents)}` }, [
+      item.tag ? el('span', { class: 'card__tag', text: off ? `${item.tag} −${off}%` : item.tag }) : null,
       media,
       el('span', { class: 'card__body' }, [
         el('span', { class: 'card__name', text: item.name }),
         item.desc ? el('span', { class: 'card__desc', text: item.desc }) : null,
         el('span', { class: 'card__foot' }, [
-          el('span', { class: 'card__price', text: money(item.cents) }),
+          el('span', { class: 'card__prices' }, [
+            el('span', { class: 'card__price', text: money(item.cents) }),
+            item.wasCents ? el('s', { class: 'card__was', text: money(item.wasCents) }) : null,
+          ]),
           el('span', { class: 'card__plus', 'aria-hidden': 'true', text: '+' }),
         ]),
       ]),
