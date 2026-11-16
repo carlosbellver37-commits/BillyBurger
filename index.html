@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Billy Burgers | Hamburguesas en Montevideo, a domicilio y para recoger</title>
+  <meta name="description" content="Sencillamente delicioso. Hamburguesas Billy en Pocitos, Prado y Punta Gorda. Mira la carta con precios y pide por WhatsApp, a domicilio o para recoger.">
+  <meta name="theme-color" content="#FFF1E6">
+  <meta property="og:title" content="Billy Burgers · Montevideo">
+  <meta property="og:description" content="Sencillamente delicioso. Pide por WhatsApp, a domicilio o para recoger.">
+  <meta property="og:image" content="assets/cut/doble-deal.webp">
+  <link rel="icon" href="assets/brand/head.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Caprasimo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/carta.css">
+  <link rel="stylesheet" href="css/order.css">
+  <link rel="stylesheet" href="css/billy.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Billy Burgers",
+    "servesCuisine": ["Hamburguesas"],
+    "telephone": "+59892780230",
+    "address": { "@type": "PostalAddress", "streetAddress": "Brito del Pino 1114", "addressLocality": "Montevideo", "addressCountry": "UY" },
+    "geo": { "@type": "GeoCoordinates", "latitude": -34.9097409, "longitude": -56.1592403 },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday", "Saturday"], "opens": "19:45", "closes": "23:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday", "Friday"], "opens": "20:00", "closes": "22:45" }
+    ]
+  }
+  </script>
+</head>
+<body class="is-loading">
+  <a class="skip" href="#carta">Saltar a la carta</a>
+
+  <svg width="0" height="0" class="sr-only" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.2l-.9 1.2c-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.5-.5.3-.5v-.5c-.1-.2-.7-1.6-.9-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Z"/></symbol>
+  </svg>
+
+  <!-- Pantalla de carga -->
+  <div class="loader" data-loader aria-hidden="true">
+    <span class="logo logo--head loader__logo"></span>
+    <div class="loader__count"><span data-loader-count>0</span>%</div>
+    <p class="micro">Calentando la plancha</p>
+  </div>
+
+  <header class="nav" data-nav>
+    <a class="nav__logo" href="#top" aria-label="Billy Burgers, inicio"><span class="logo logo--head" role="img" aria-label="Billy Burgers"></span></a>
+    <p class="nav__hot micro">Lo nuevo es<br><strong>Crispy 2.0 · $ 450</strong></p>
+    <nav class="nav__links micro" aria-label="Principal">
+      <a href="#coleccion">Favoritas</a>
+      <a href="#carta">Carta</a>
+      <a href="#pedir">Cómo pedir</a>
+      <a href="#local">Locales</a>
+    </nav>
+    <button class="pill pill--order" type="button" data-open-cart>
+      <span>¡Pide ya!</span><b class="pill__count" data-cart-count hidden>0</b>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="stage" data-stage aria-labelledby="hero-title">
+      <h1 id="hero-title" class="stage__title" aria-label="Billy Burgers, hamburguesas en Montevideo">
+        <span class="stage__line" data-title-a aria-hidden="true">Billy</span>
+        <span class="stage__line stage__line--b" data-title-b aria-hidden="true">Burgers</span>
+      </h1>
+
+      <div class="burger" data-burger role="img" aria-label="Hamburguesa Crispy 2.0 con doble carne, queso cheddar, bacon y cebolla crocante">
+        <img src="assets/cut/crispy2.webp" alt="" width="760" height="1140" fetchpriority="high">
+      </div>
+
+      <div class="stage__meta" data-hero-meta>
+        <p class="micro stage__meta-a">Sencillamente delicioso<br>Pocitos · Prado · Punta Gorda</p>
+        <a class="stage__meta-b" href="#carta">
+          <span class="micro">Aquí tienes<br>nuestra carta</span>
+          <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M6 18 18 6M8 6h10v10" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+        </a>
+        <p class="micro stage__meta-c">Crispy / Americana / CheeseBurger / BigBilly / BillyChicken / Doble Billy Deal / Papas fritas</p>
+      </div>
+
+      <button class="sticker sticker--spin" type="button" data-open-cart data-hero-meta aria-label="Abrir pedido">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="98" fill="var(--ketchup)"/>
+          <defs><path id="ring" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs>
+          <text class="sticker__ring" fill="#fff"><textPath href="#ring">PIDE POR WHATSAPP ★ A DOMICILIO O A RECOGER ★ </textPath></text>
+        </svg>
+        <span class="sticker__core">PIDE<br>YA</span>
+      </button>
+      <p class="sticker sticker--rate" data-hero-meta><b>15%</b><span>de descuento<br>en Take App</span></p>
+
+      <p class="stage__end" data-stage-end><span class="script">sencillamente</span> delicioso</p>
+
+      <div class="scrollhint micro" data-hero-meta aria-hidden="true">Baja y elige <i></i></div>
+    </section>
+
+    <div class="ticker ticker--ink" aria-hidden="true"><div class="ticker__track" data-ticker></div></div>
+
+    <!-- Colección horizontal -->
+    <section id="coleccion" class="collection" data-collection aria-labelledby="col-title">
+      <div class="collection__track" data-collection-track>
+        <header class="collection__intro">
+          <p class="micro">Colección Montevideo / Noviembre 2026</p>
+          <h2 id="col-title" class="display">Las que<br>piden<br><span class="script script--big">otra vez</span></h2>
+          <p class="collection__lead">Seis platos que te sacan de dudas. Sigue bajando y elige.</p>
+        </header>
+        <div class="collection__panels" data-featured></div>
+      </div>
+    </section>
+
+    <!-- Carta -->
+    <section id="carta" class="carta" aria-labelledby="carta-title">
+      <header class="carta__head">
+        <h2 id="carta-title" class="display display--xl" data-reveal-text>La carta</h2>
+        <p class="carta__note">Toca cualquier plato para añadirlo a tu pedido.</p>
+      </header>
+      <div class="carta__tabs" role="tablist" aria-label="Categorías de la carta" data-tabs></div>
+      <div class="carta__panel" role="tabpanel" data-panel tabindex="-1"></div>
+      <p class="carta__legal">Precios en pesos uruguayos. ¿Alergias? Avísanos antes de pedir, al <a href="tel:+59892780230">092 780 230</a>.</p>
+    </section>
+
+    <!-- Foto a sangre -->
+    <figure class="bleed" data-bleed>
+      <img src="assets/cut/doble-deal.webp" alt="Dos hamburguesas Billy con cheddar y bacon, y dos cajas de papas fritas" loading="lazy" width="760" height="1140" data-bleed-img>
+      <figcaption class="display" data-bleed-text>Para compartir.<br>O no.</figcaption>
+    </figure>
+
+    <!-- Cómo pedir -->
+    <section id="pedir" class="how" aria-labelledby="how-title">
+      <h2 id="how-title" class="display display--xl how__title">Tres<br>toques</h2>
+      <ol class="how__steps">
+        <li data-rise><b class="how__n">1</b><h3>Elige</h3><p>Añade lo que te apetezca desde la carta: hamburguesas, combos, papas y bebidas.</p></li>
+        <li data-rise><b class="how__n">2</b><h3>Dinos cómo</h3><p>A domicilio o a recoger en Brito del Pino 1114 (Pocitos). Tú decides a qué hora.</p></li>
+        <li data-rise><b class="how__n">3</b><h3>Envíalo</h3><p>Se abre WhatsApp con tu pedido ya escrito. Lo mandas y te lo confirmamos.</p></li>
+      </ol>
+      <div class="how__modes">
+        <button class="mode-card" type="button" data-start-mode="delivery" data-rise>
+          <span class="micro">Te lo llevamos</span><strong>A domicilio</strong><i aria-hidden="true">→</i>
+        </button>
+        <button class="mode-card mode-card--ink" type="button" data-start-mode="pickup" data-rise>
+          <span class="micro">Te lo preparamos</span><strong>A recoger</strong><i aria-hidden="true">→</i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Números -->
+    <section class="proof" aria-label="Billy Burgers en cifras">
+      <dl class="proof__grid">
+        <div data-rise><dt class="micro">Locales en Montevideo</dt><dd><span data-count="3">3</span></dd></div>
+        <div data-rise><dt class="micro">Seguidores en Instagram</dt><dd><span data-count="17">17</span><small>mil</small></dd></div>
+        <div data-rise><dt class="micro">Descuento pidiendo en Take App</dt><dd><span data-count="15">15</span><small>%</small></dd></div>
+      </dl>
+      <blockquote class="proof__quote" data-rise>
+        <p>“Sencillamente delicioso.”</p>
+        <cite class="micro">Billy Burgers</cite>
+      </blockquote>
+    </section>
+
+    <!-- Local -->
+    <section id="local" class="place" aria-labelledby="place-title">
+      <div class="place__head">
+        <h2 id="place-title" class="display display--xl">Tres<br>locales</h2>
+        <p class="status" data-open-status><i></i><span>Consultando horario</span></p>
+      </div>
+      <div class="place__grid">
+        <div class="place__info">
+          <div data-rise>
+            <h3 class="micro">Pocitos</h3>
+            <p class="place__big">Brito del Pino 1114<br>Montevideo</p>
+            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=-34.9097409,-56.1592403" target="_blank" rel="noopener">Cómo llegar ↗</a>
+          </div>
+          <div data-rise>
+            <h3 class="micro">Reserva o llama</h3>
+            <p class="place__big"><a href="tel:+59892780230">092 780 230</a></p>
+            <p class="place__small">También en el Prado (Av. Millán 4426, <a href="tel:+59895457200">095 457 200</a>) y en Punta Gorda (Galería Shopping Punta Gorda, Av. Gral. José María Paz 1428).</p>
+          </div>
+          <div data-rise>
+            <h3 class="micro">Horario Pocitos</h3>
+            <table class="hours" data-hours><caption class="sr-only">Horario de apertura de Pocitos</caption></table>
+          </div>
+          <div data-rise>
+            <h3 class="micro">Pide en otros locales</h3>
+            <p class="place__links">
+              <a class="link" href="https://take.app/billyburgersprado" target="_blank" rel="noopener">Prado ↗</a>
+              <a class="link" href="https://take.app/billyburgerspuntagorda" target="_blank" rel="noopener">Punta Gorda ↗</a>
+              <a class="link" href="https://www.instagram.com/billyburgersuy/" target="_blank" rel="noopener">Instagram ↗</a>
+            </p>
+          </div>
+        </div>
+        <div class="place__media">
+          <img src="assets/cut/combo-crispy.webp" alt="Combo Crispy con papas fritas en caja Billy Burgers" loading="lazy" width="760" height="1140" data-parallax>
+          <iframe title="Mapa de Billy Burgers en Pocitos, Montevideo" src="https://www.google.com/maps?q=-34.9097409,-56.1592403&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="ticker ticker--ketchup" aria-hidden="true"><div class="ticker__track" data-ticker data-reverse></div></div>
+    <div class="footer__big" aria-hidden="true" data-fit>Billy</div>
+    <div class="footer__row micro">
+      <p>© 2026 Billy Burgers</p>
+      <p><a href="tel:+59892780230">092 780 230</a> · Brito del Pino 1114 · Pocitos</p>
+      <p><a href="#top">Volver arriba ↑</a></p>
+    </div>
+  </footer>
+
+  <!-- Barra móvil -->
+  <button class="mobilebar" type="button" data-open-cart data-mobilebar hidden>
+    <span><b data-cart-count>0</b> en tu pedido</span><strong data-cart-total>$ 0</strong>
+  </button>
+
+  <!-- Personalizar plato -->
+  <dialog class="sheet" data-custom data-lenis-prevent aria-labelledby="custom-title">
+    <form method="dialog" class="sheet__inner" data-custom-form novalidate>
+      <button class="sheet__close" type="button" data-close aria-label="Cerrar">×</button>
+      <div class="sheet__img" data-custom-img></div>
+      <h2 id="custom-title" class="display" data-custom-name></h2>
+      <p class="sheet__desc" data-custom-desc></p>
+      <div data-custom-groups></div>
+      <p class="field__error" data-custom-error role="alert"></p>
+      <button class="cta" type="submit">Añadir · <span data-custom-price></span></button>
+    </form>
+  </dialog>
+
+  <!-- Pedido -->
+  <dialog class="drawer" data-cart data-lenis-prevent aria-labelledby="cart-title">
+    <div class="drawer__inner">
+      <header class="drawer__head">
+        <h2 id="cart-title" class="display">Tu pedido</h2>
+        <button class="sheet__close" type="button" data-close aria-label="Cerrar pedido">×</button>
+      </header>
+      <div class="drawer__body">
+        <ul class="lines" data-lines></ul>
+        <div class="empty" data-empty>
+          <p class="display">Aquí falta<br>una Billy</p>
+          <a class="cta cta--ghost" href="#carta" data-close>Ver la carta</a>
+        </div>
+        <form class="order" id="order-form" data-order novalidate>
+          <fieldset class="segmented">
+            <legend class="micro">¿Cómo lo quieres?</legend>
+            <label><input type="radio" name="mode" value="delivery" checked><span>A domicilio</span></label>
+            <label><input type="radio" name="mode" value="pickup"><span>A recoger</span></label>
+          </fieldset>
+          <p class="order__hint" data-mode-hint></p>
+          <p class="order__closed" data-closed-hint hidden>Ahora estamos cerrados. Elige una hora y lo dejamos programado.</p>
+          <label class="field"><span class="micro">Tu nombre</span><input name="name" autocomplete="name" maxlength="60" required><em class="field__error" data-error="name"></em></label>
+          <label class="field" data-address-field><span class="micro">Dirección, esquina y apartamento</span><input name="address" autocomplete="street-address" maxlength="160"><em class="field__error" data-error="address"></em></label>
+          <div class="field-row">
+            <label class="field"><span class="micro" data-time-label>¿Para cuándo?</span><select name="time" data-time></select></label>
+            <label class="field"><span class="micro">Pago</span><select name="pay"><option>Efectivo</option><option>Tarjeta</option></select></label>
+          </div>
+          <label class="field"><span class="micro">Notas</span><textarea name="notes" rows="2" maxlength="300" placeholder="Sin cebolla, alergias, timbre roto…"></textarea></label>
+        </form>
+      </div>
+      <footer class="drawer__foot">
+        <p class="field__error" data-error="cart" role="alert"></p>
+        <p class="drawer__total"><span>Total</span><strong data-cart-total aria-live="polite">$ 0</strong></p>
+        <button class="cta cta--wa" type="submit" form="order-form" data-send><svg width="22" height="22" aria-hidden="true"><use href="#i-wa"/></svg> Enviar por WhatsApp</button>
+        <p class="drawer__fine">Se abrirá WhatsApp con el pedido escrito. El local lo confirma por el mismo chat, junto con el costo de envío si lo hay.</p>
+      </footer>
+    </div>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Para ver la carta y pedir necesitas JavaScript. También puedes llamarnos al 092 780 230.</p></noscript>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart-core.js" defer></script>
+  <script src="js/menu-ui.js" defer></script>
+  <script src="js/order-ui.js" defer></script>
+  <script src="js/motion.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

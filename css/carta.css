@@ -1,0 +1,87 @@
+.carta { background: var(--paper); padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 6vw, 90px); }
+.carta__head { padding: 0 var(--gutter); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.carta__note { max-width: 32ch; font-weight: 500; padding-bottom: 1.5vw; }
+
+.carta__tabs {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; gap: 6px; margin-top: clamp(20px, 3vw, 44px); padding: 12px var(--gutter);
+  overflow-x: auto; scrollbar-width: none; background: var(--paper); border-block: 2px solid var(--ink);
+}
+.carta__tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; height: 44px; padding: 0 18px; border-radius: 40px;
+  font: 400 clamp(1.05rem, 1.7vw, 1.45rem) var(--font-display); letter-spacing: .02em; text-transform: uppercase;
+  transition: background .25s, color .25s, transform .4s var(--ease);
+}
+.tab:hover { background: var(--bone); transform: translateY(-2px); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+
+.carta__panel { padding: clamp(22px, 3vw, 44px) var(--gutter); min-height: 60vh; outline: none; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(10px, 1.2vw, 18px); }
+.grid > .card { grid-column: span 3; }
+/* Ritmo irregular: cada cierto número de platos, una tarjeta protagonista */
+.grid > .card:nth-child(7n + 1) { grid-column: span 6; grid-row: span 2; }
+.grid > .card:nth-child(7n + 1) .card__media { flex: 1; min-height: 340px; }
+.grid > .card:nth-child(7n + 1) .card__name { font-size: clamp(2.4rem, 4.6vw, 4.8rem); }
+.grid > .card:nth-child(14n + 1) { --tone: var(--cheddar); }
+
+.card {
+  --tone: var(--bone);
+  position: relative; display: flex; flex-direction: column; width: 100%; text-align: left;
+  background: var(--tone); border-radius: 10px; overflow: hidden;
+  transition: transform .55s var(--ease), box-shadow .55s var(--ease);
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 16px 0 -8px var(--ink); }
+.card:focus-visible { outline-offset: 2px; }
+.card:active { transform: scale(.985); }
+.card__media { position: relative; display: grid; place-items: center; height: clamp(170px, 19vw, 280px); padding: 14px; }
+.card__media img {
+  position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); max-width: none; object-fit: contain;
+  filter: drop-shadow(0 12px 10px rgba(12, 11, 10, .25));
+  transition: transform .7s var(--ease);
+}
+.card:hover .card__media img { transform: scale(1.09) rotate(-3deg); }
+.card__media--type { font: 400 clamp(3rem, 6vw, 6rem)/.9 var(--font-display); text-transform: uppercase; text-align: center; color: var(--ketchup); }
+.card__body { padding: 0 16px 14px; display: flex; flex-direction: column; gap: 6px; flex: none; }
+.card__name { font: 400 clamp(1.5rem, 2vw, 2.1rem)/1 var(--font-display); text-transform: uppercase; padding-right: 8px; }
+.card__desc { font-size: .86rem; line-height: 1.32; color: var(--ink-soft); }
+.card__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+.card__price { font: 400 1.45rem var(--font-display); }
+.card__plus {
+  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--ink); color: var(--paper); font: 500 1.5rem/1 var(--font-text);
+  transition: background .25s, transform .5s var(--ease);
+}
+.card:hover .card__plus { background: var(--ketchup); transform: rotate(90deg) scale(1.1); }
+.card__tag {
+  position: absolute; left: 12px; top: 12px; z-index: 2; padding: 5px 9px; background: var(--ketchup); color: #fff; border-radius: 4px;
+  font-size: .68rem; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; transform: rotate(-4deg);
+}
+
+/* Bebidas: lista tipográfica, no necesita foto */
+.rows { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 clamp(30px, 5vw, 80px); }
+.rows__group { break-inside: avoid; margin-bottom: 30px; }
+.rows__title { color: var(--ketchup); padding-bottom: 8px; }
+.row {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; min-height: 54px; padding: 8px 2px;
+  border-top: 1px solid var(--line); text-align: left;
+  font: 400 clamp(1.2rem, 1.9vw, 1.7rem)/1.05 var(--font-display); text-transform: uppercase;
+  transition: padding .4s var(--ease), color .2s;
+}
+.row:hover { padding-left: 12px; color: var(--ketchup); }
+.row span:last-child { flex: none; display: flex; align-items: center; gap: 12px; }
+.row i { font: 500 1.3rem/1 var(--font-text); }
+
+.carta__legal { padding: 0 var(--gutter); font-size: .85rem; color: var(--ink-soft); }
+
+@media (max-width: 899px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid > .card { grid-column: span 1; }
+  .grid > .card:nth-child(7n + 1) { grid-column: span 2; grid-row: auto; }
+  .grid > .card:nth-child(7n + 1) .card__media { min-height: 240px; }
+  .card__media { height: 140px; }
+  .card__body { padding: 0 11px 11px; }
+  .card__desc { font-size: .78rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .card__plus { width: 38px; height: 38px; }
+  .rows { grid-template-columns: 1fr; }
+}
