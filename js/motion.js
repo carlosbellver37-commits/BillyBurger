@@ -4,8 +4,9 @@
   const NT = root.NT;
   const gsap = root.gsap;
   const ScrollTrigger = root.ScrollTrigger;
-  const reduced = root.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const animated = Boolean(gsap && ScrollTrigger && !reduced);
+  // Decisión de diseño: los efectos van siempre activos, aunque el navegador (Safari, ahorro de batería, etc.)
+  // pida "reducir movimiento". Solo se desactivan si GSAP no llega a cargar.
+  const animated = Boolean(gsap && ScrollTrigger);
   const DESKTOP = '(min-width: 900px)';
   const TICKER_TEXT = ['Sencillamente delicioso', 'Pocitos', 'Prado', 'Punta Gorda', 'A domicilio o a recoger'];
 
