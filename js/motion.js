@@ -41,7 +41,7 @@
       });
       return;
     }
-    lenis = new root.Lenis({ lerp: 0.06, wheelMultiplier: 0.8, smoothWheel: true });
+    lenis = new root.Lenis({ lerp: 0.07, wheelMultiplier: 0.65, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     // Las escenas fijadas cambian la altura de la página: Lenis debe recalcular su límite de scroll.
     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
@@ -106,7 +106,7 @@
     };
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 2.6 : 2.3)}`, pin: true, scrub: isDesktop ? 0.6 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 4.2 : 3.2)}`, pin: true, scrub: isDesktop ? 0.6 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.to('[data-hero-meta]', { autoAlpha: 0, duration: 0.5 }, 0)
       .to('[data-title-a]', { xPercent: -14, autoAlpha: 0.08, duration: 1 }, 0)
@@ -134,9 +134,15 @@
   function collectionScroll() {
     const track = document.querySelector('[data-collection-track]');
     const distance = () => track.scrollWidth - root.innerWidth;
+    // Recorrido lento y con pausas: la colección se queda fija un rato al principio (se lee el título)
+    // y otro al final (la inercia del scroll se gasta aquí y no se salta la carta).
+    const travel = () => distance() * 1.8;
+    const holdStart = () => root.innerHeight * 0.9;
+    const holdEnd = () => root.innerHeight * 1.2;
+    const pinST = ScrollTrigger.create({ trigger: '[data-collection]', start: 'top top', end: () => `+=${holdStart() + travel() + holdEnd()}`, pin: true, anticipatePin: 1, invalidateOnRefresh: true });
     const move = gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: '[data-collection]', start: 'top top', end: () => `+=${distance() * 1.8}`, pin: true, scrub: 0.9, invalidateOnRefresh: true, anticipatePin: 1 },
+      scrollTrigger: { trigger: '[data-collection]', start: () => pinST.start + holdStart(), end: () => pinST.start + holdStart() + travel(), scrub: 0.9, invalidateOnRefresh: true },
     });
     $$('[data-panel-item]').forEach((panel) => {
       const anim = { trigger: panel, containerAnimation: move, start: 'left right', end: 'right left', scrub: true };
