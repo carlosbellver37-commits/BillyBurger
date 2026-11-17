@@ -223,6 +223,19 @@
     return Promise.race([decoded, timeout]);
   }
 
+  /* Durante la entrada la página aún no tiene las escenas fijadas: si se baja ahora, al crearlas el scroll queda a mitad
+     de una escena y "se rompe". Se bloquea la rueda, el tacto y el teclado hasta que todo está listo. */
+  const KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'Spacebar']);
+  const stopScroll = (e) => { if (e.type !== 'keydown' || KEYS.has(e.key)) e.preventDefault(); };
+  function lockScroll() {
+    document.documentElement.classList.add('is-locked');
+    ['wheel', 'touchmove', 'keydown'].forEach((t) => root.addEventListener(t, stopScroll, { passive: false }));
+  }
+  function unlockScroll() {
+    document.documentElement.classList.remove('is-locked');
+    ['wheel', 'touchmove', 'keydown'].forEach((t) => root.removeEventListener(t, stopScroll));
+  }
+
   function init() {
     buildTickers();
     if (!animated) {
@@ -235,6 +248,7 @@
     ScrollTrigger.config({ ignoreMobileResize: true });
     root.history.scrollRestoration = 'manual';
     root.scrollTo(0, 0);
+    lockScroll();
     initSmoothScroll();
     if (lenis) lenis.stop();
     burgerParallax();
@@ -244,6 +258,9 @@
   /* Se crean al terminar la entrada: así las animaciones de scroll leen los valores finales
      de cada elemento y no compiten con la entrada por el mismo título, capas o pegatinas. */
   function startScrollScenes() {
+    // Si el navegador dejó bajar durante la entrada, se vuelve arriba antes de crear las escenas.
+    root.scrollTo(0, 0);
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
     gsap.matchMedia().add({ desktop: DESKTOP, mobile: '(max-width: 899px)' }, (ctx) => {
       stageTimeline(ctx.conditions.desktop);
       if (ctx.conditions.desktop) collectionScroll();
@@ -251,6 +268,7 @@
     reveals();
     navBehaviour();
     document.body.classList.remove('is-loading');
+    unlockScroll();
     if (lenis) lenis.start();
     ScrollTrigger.refresh();
     keepScrollInSync();

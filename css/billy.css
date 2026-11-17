@@ -202,3 +202,7 @@ html { overscroll-behavior-y: none; }
 .panel__ghost, .panel__img img, .collection__track, .bleed .bleed__item, .ticker__track { will-change: transform; }
 .collection, .bleed, .how { contain: layout paint; }
 img { image-rendering: auto; }
+
+/* Mientras carga la entrada la página no se puede desplazar */
+html:has(body.is-loading), html.is-locked { overflow: hidden !important; }
+body.is-loading { touch-action: none; }
