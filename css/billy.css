@@ -189,3 +189,16 @@ button, a, .card, .row, .tab { touch-action: manipulation; }
 
 /* Capas propias para lo que se anima en la entrada y en el scroll del hero */
 .stage__line, .stage__end, .callout { will-change: transform, opacity; }
+
+
+/* Scroll suave: reglas recomendadas de Lenis y menos pintado mientras se desplaza */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+html { overscroll-behavior-y: none; }
+.nav.is-solid { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bone); }
+.panel__ghost, .panel__img img, .collection__track, .bleed .bleed__item, .ticker__track { will-change: transform; }
+.collection, .bleed, .how { contain: layout paint; }
+img { image-rendering: auto; }

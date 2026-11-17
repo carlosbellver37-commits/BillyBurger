@@ -37,7 +37,7 @@
         ]),
       ]),
       el('div', { class: 'panel__img' }, [
-        el('img', { src: imgPath(item.img), srcset: imgSet(item.img), sizes: '(max-width: 899px) 80vw, 40vw', alt: item.name, loading: 'lazy', decoding: 'async', 'data-panel-img': '' }),
+        el('img', { src: imgPath(item.img), srcset: imgSet(item.img), sizes: '(max-width: 899px) 80vw, 40vw', alt: item.name, loading: 'eager', decoding: 'async', 'data-panel-img': '' }),
       ]),
     ]);
   }

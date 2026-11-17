@@ -41,7 +41,7 @@
       });
       return;
     }
-    lenis = new root.Lenis({ lerp: 0.1, wheelMultiplier: 0.75, smoothWheel: true });
+    lenis = new root.Lenis({ lerp: 0.06, wheelMultiplier: 0.8, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     // Las escenas fijadas cambian la altura de la página: Lenis debe recalcular su límite de scroll.
     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
@@ -106,7 +106,7 @@
     };
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 2.6 : 2.3)}`, pin: true, scrub: isDesktop ? 0.45 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 2.6 : 2.3)}`, pin: true, scrub: isDesktop ? 0.6 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.to('[data-hero-meta]', { autoAlpha: 0, duration: 0.5 }, 0)
       .to('[data-title-a]', { xPercent: -14, autoAlpha: 0.08, duration: 1 }, 0)
@@ -136,7 +136,7 @@
     const distance = () => track.scrollWidth - root.innerWidth;
     const move = gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: '[data-collection]', start: 'top top', end: () => `+=${distance() * 1.8}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+      scrollTrigger: { trigger: '[data-collection]', start: 'top top', end: () => `+=${distance() * 1.8}`, pin: true, scrub: 0.9, invalidateOnRefresh: true, anticipatePin: 1 },
     });
     $$('[data-panel-item]').forEach((panel) => {
       const anim = { trigger: panel, containerAnimation: move, start: 'left right', end: 'right left', scrub: true };
