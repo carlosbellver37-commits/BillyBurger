@@ -28,7 +28,7 @@
       item.wasCents ? el('span', { class: 'panel__offer', text: `Oferta −${Math.round((1 - item.cents / item.wasCents) * 100)}%` }) : null,
       el('p', { class: 'panel__num micro', text: `${String(i + 1).padStart(2, '0')} / ${String(NT.FEATURED.length).padStart(2, '0')}` }),
       el('div', { class: 'panel__copy' }, [
-        el('h3', { class: 'panel__name', text: item.name }),
+        el('h3', { class: 'panel__name', text: item.short || item.name }),
         el('p', { class: 'panel__desc', text: item.desc }),
         el('div', { class: 'panel__buy' }, [
           el('span', { class: 'panel__price', text: money(item.cents) }),

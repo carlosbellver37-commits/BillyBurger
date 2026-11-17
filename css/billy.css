@@ -10,7 +10,7 @@
   --cheddar: #CFE2F8;
   --line: rgba(10, 42, 94, .16);
   --font-display: Caprasimo, 'Cooper Black', Georgia, serif;
-  --font-script: Caprasimo, 'Cooper Black', Georgia, serif;
+  --font-script: Pacifico, 'Brush Script MT', cursive;
 }
 
 /* Tipografía: Caprasimo es ancha y se lee mejor en minúsculas y mayúsculas mezcladas */
@@ -21,7 +21,8 @@
 }
 .display { font-size: clamp(2.6rem, 5.6vw, 5.6rem); line-height: 1.02; letter-spacing: 0; }
 .display--xl { font-size: clamp(3.4rem, 13vw, 13rem); line-height: .95; }
-.script--big { font-size: 1em; transform: rotate(-4deg); }
+.script { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.script--big { display: inline-block; font-size: .92em; line-height: 1.15; transform: rotate(-5deg) translateY(.04em); transform-origin: left center; }
 .collection__intro .display { font-size: clamp(3rem, 10.5vh, 9rem); }
 .stage__line { font-size: 22vw; line-height: 1.05; letter-spacing: 0; }
 .callout { font-size: clamp(1rem, 1.7vw, 1.7rem); line-height: 1.12; }
@@ -159,3 +160,8 @@ button, a, .card, .row, .tab { touch-action: manipulation; }
   .stage, .collection__panels, .how, .proof, .place { contain: layout paint; }
   .card--offer .card__tag, .panel__offer { animation-duration: 3.2s; }
 }
+
+/* Títulos de la colección: nunca se cortan por el lado derecho */
+.panel__copy { min-width: 0; }
+.panel__name { overflow-wrap: break-word; hyphens: auto; max-width: 100%; font-size: clamp(2.2rem, min(7.4vh, 4.4vw), 5.4rem); }
+@media (max-width: 899px) { .panel__name { font-size: clamp(2rem, 10vw, 3.4rem); } }

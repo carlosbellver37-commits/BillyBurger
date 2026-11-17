@@ -45,7 +45,7 @@
   ]);
 
   const peso = (n) => n * 100;
-  const dish = (cat, id, name, price, img, desc, tag, was) => ({ id, cat, name, cents: peso(price), img, desc: desc || '', groups: [], tag, wasCents: was ? peso(was) : 0 });
+  const dish = (cat, id, name, price, img, desc, tag, was, short) => ({ id, cat, name, short: short || name, cents: peso(price), img, desc: desc || '', groups: [], tag, wasCents: was ? peso(was) : 0 });
   const drink = (id, name, price, sub) => ({ id, cat: 'bebidas', name, cents: peso(price), img: null, desc: '', groups: [], sub });
 
   const MENU = Object.freeze([
@@ -55,12 +55,12 @@
     dish('combos', 'combo-americana', 'Americana + Papas Fritas', 485, 'combo-americana', 'Medallón de carne, queso cheddar, lechuga, tomate, cebolla y nuestra salsa Billy.'),
     dish('combos', 'combo-crispy', 'Crispy + Papas Fritas', 490, 'combo-crispy', 'Medallón de carne, queso cheddar, bacon y la cebolla crispy más crujiente.'),
     dish('combos', 'combo-cheese', 'CheeseBurger + Papas Fritas', 485, 'combo-cheese', 'Medallón de carne, queso cheddar, toque de cebolla y la combinación de ketchup y mostaza.'),
-    dish('combos', 'combo-bigbilly', 'BigBilly + Papas Fritas', 490, 'combo-bigbilly', 'Medallón de carne, queso cheddar, pepinillos y un balance perfecto de lechuga.'),
+    dish('combos', 'combo-bigbilly', 'BigBilly + Papas Fritas', 490, 'combo-bigbilly', 'Medallón de carne, queso cheddar, pepinillos y un balance perfecto de lechuga.', undefined, undefined, 'BigBilly + Papas'),
     dish('combos', 'combo-chicken', 'BillyChicken + Papas', 499, 'combo-chicken', 'Pechuga de pollo crocante, queso cheddar, lechuga y mayonesa.'),
 
     dish('burgers', 'crispy', 'Hamburguesa Crispy simple', 370, 'crispy', 'Medallón de carne, queso cheddar, bacon y la cebolla crispy más crujiente.', 'Favorita'),
-    dish('burgers', 'americana', 'Hamburguesa Americana simple', 360, 'americana', 'Medallón de carne, queso cheddar, lechuga, tomate, cebolla y nuestra salsa Billy.'),
-    dish('burgers', 'cheese', 'Hamburguesa CheeseBurger simple', 360, 'cheese', 'Medallón de carne, queso cheddar, toque de cebolla y la combinación de ketchup y mostaza.'),
+    dish('burgers', 'americana', 'Hamburguesa Americana simple', 360, 'americana', 'Medallón de carne, queso cheddar, lechuga, tomate, cebolla y nuestra salsa Billy.', undefined, undefined, 'Americana'),
+    dish('burgers', 'cheese', 'Hamburguesa CheeseBurger simple', 360, 'cheese', 'Medallón de carne, queso cheddar, toque de cebolla y la combinación de ketchup y mostaza.', undefined, undefined, 'CheeseBurger'),
     dish('burgers', 'bigbilly', 'Hamburguesa BigBilly simple', 370, 'bigbilly', 'Medallón de carne, queso cheddar, pepinillos y un balance perfecto de lechuga.'),
     dish('burgers', 'chicken', 'BillyChicken', 380, 'chicken', 'Pechuga de pollo crocante, queso cheddar, lechuga y mayonesa.'),
 
