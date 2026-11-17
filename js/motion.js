@@ -41,7 +41,7 @@
       });
       return;
     }
-    lenis = new root.Lenis({ lerp: 0.07, wheelMultiplier: 0.65, smoothWheel: true });
+    lenis = new root.Lenis({ lerp: 0.07, wheelMultiplier: 0.42, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     // Las escenas fijadas cambian la altura de la página: Lenis debe recalcular su límite de scroll.
     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
