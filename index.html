@@ -138,14 +138,17 @@
 
     <!-- Foto a sangre -->
     <figure class="bleed" data-bleed>
-      <img src="assets/cut/doble-deal.webp" alt="Dos hamburguesas Billy con cheddar y bacon, y dos cajas de papas fritas" loading="lazy" width="760" height="1140" data-bleed-img>
-      <figcaption class="display" data-bleed-text>Para compartir.<br>O no.</figcaption>
+      <figcaption class="display" data-bleed-text>Para<br>compartir.<br><span class="bleed__no">O no.</span></figcaption>
+      <div class="bleed__items" role="img" aria-label="Dos cajas de papas fritas y dos hamburguesas Billy">
+        <img class="bleed__item bleed__item--fries1" data-bleed-item src="assets/cut/papas.webp" alt="" width="635" height="857" loading="lazy" decoding="async">
+        <img class="bleed__item bleed__item--fries2" data-bleed-item src="assets/cut/papas.webp" alt="" width="635" height="857" loading="lazy" decoding="async">
+        <img class="bleed__item bleed__item--burger1" data-bleed-item src="assets/cut/crispy.webp" alt="" width="695" height="366" loading="lazy" decoding="async">
+        <img class="bleed__item bleed__item--burger2" data-bleed-item src="assets/cut/americana.webp" alt="" width="643" height="397" loading="lazy" decoding="async">
+      </div>
     </figure>
 
     <!-- Cómo pedir -->
     <section id="pedir" class="how" aria-labelledby="how-title">
-      <img class="how__float how__float--a" data-float src="assets/cut/doble-deal.webp" alt="" width="708" height="570" loading="lazy">
-      <img class="how__float how__float--b" data-float src="assets/cut/papas.webp" alt="" width="635" height="854" loading="lazy">
       <h2 id="how-title" class="display display--xl how__title">Tres<br>toques</h2>
       <ol class="how__steps">
         <li data-rise><b class="how__n">1</b><h3>Elige</h3><p>Añade lo que te apetezca desde la carta: hamburguesas, combos, papas y bebidas.</p></li>

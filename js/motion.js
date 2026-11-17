@@ -41,7 +41,7 @@
       });
       return;
     }
-    lenis = new root.Lenis({ lerp: 0.11, smoothWheel: true });
+    lenis = new root.Lenis({ lerp: 0.1, wheelMultiplier: 0.75, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     // Las escenas fijadas cambian la altura de la página: Lenis debe recalcular su límite de scroll.
     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
@@ -106,7 +106,7 @@
     };
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 3.2 : 2.3)}`, pin: true, scrub: isDesktop ? 0.7 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 2.6 : 2.3)}`, pin: true, scrub: isDesktop ? 0.45 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.to('[data-hero-meta]', { autoAlpha: 0, duration: 0.5 }, 0)
       .to('[data-title-a]', { xPercent: -14, autoAlpha: 0.08, duration: 1 }, 0)
@@ -136,7 +136,7 @@
     const distance = () => track.scrollWidth - root.innerWidth;
     const move = gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: '[data-collection]', start: 'top top', end: () => `+=${distance()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 },
+      scrollTrigger: { trigger: '[data-collection]', start: 'top top', end: () => `+=${distance() * 1.8}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
     $$('[data-panel-item]').forEach((panel) => {
       const anim = { trigger: panel, containerAnimation: move, start: 'left right', end: 'right left', scrub: true };
@@ -153,7 +153,10 @@
     $$('.how__n').forEach((n) => gsap.from(n, { scale: 0, rotation: -40, duration: 0.9, ease: 'back.out(2.2)', scrollTrigger: { trigger: n, start: 'top 90%', once: true } }));
     $$('[data-rise]').forEach((n) => gsap.from(n, { y: 50, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: n, start: 'top 88%', once: true } }));
     $$('.display--xl').forEach((n) => gsap.from(n, { yPercent: 18, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: n, start: 'top 90%', once: true } }));
-    gsap.fromTo('[data-bleed-img]', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '[data-bleed]', scrub: true } });
+    $$('[data-bleed-item]').forEach((n, i) => {
+      const rot = [-8, 6, -5, 7][i % 4];
+      gsap.fromTo(n, { yPercent: 14 + i * 5, rotation: rot - 7 }, { yPercent: -14 - i * 5, rotation: rot + 7, ease: 'none', scrollTrigger: { trigger: '[data-bleed]', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+    });
     gsap.from('[data-bleed-text]', { xPercent: -8, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '[data-bleed]', start: 'top 55%', once: true } });
     gsap.fromTo('[data-parallax]', { scale: 1.16 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '[data-parallax]', scrub: true } });
     gsap.from('.footer__big', { yPercent: 40, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
@@ -207,6 +210,13 @@
     document.body.classList.remove('is-loading');
   }
 
+  /* La entrada y las etiquetas del despiece miden las capas: se espera a que estén decodificadas y . */
+  function whenHeroReady() {
+    const decoded = Promise.all($$('.burger__layer').map((img) => (img.decode ? img.decode().catch(() => {}) : Promise.resolve())));
+    const timeout = new Promise((resolve) => setTimeout(resolve, 1500));
+    return Promise.race([decoded, timeout]);
+  }
+
   function init() {
     buildTickers();
     if (!animated) {
@@ -221,8 +231,8 @@
     root.scrollTo(0, 0);
     initSmoothScroll();
     if (lenis) lenis.stop();
-    intro(startScrollScenes);
     burgerParallax();
+    whenHeroReady().then(() => intro(startScrollScenes));
   }
 
   /* Se crean al terminar la entrada: así las animaciones de scroll leen los valores finales

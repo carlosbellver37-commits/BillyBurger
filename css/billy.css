@@ -23,7 +23,6 @@
 .display--xl { font-size: clamp(3.4rem, 13vw, 13rem); line-height: .95; }
 .script { text-transform: none; letter-spacing: 0; font-weight: 400; }
 .script--big { display: inline-block; font-size: .92em; line-height: 1.15; transform: rotate(-5deg) translateY(.04em); transform-origin: left center; }
-.collection__intro .display { font-size: clamp(3rem, 10.5vh, 9rem); }
 .stage__line { font-size: 22vw; line-height: 1.05; letter-spacing: 0; }
 .callout { font-size: clamp(1rem, 1.7vw, 1.7rem); line-height: 1.12; }
 .panel__name { font-size: clamp(2.4rem, 8vh, 6rem); line-height: 1; }
@@ -63,9 +62,6 @@
 .card__body { padding-top: 4px; }
 
 /* Foto a sangre: fondo azul con el plato recortado */
-.bleed { background: var(--ketchup); }
-.bleed img { object-fit: contain; object-position: 72% 55%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .3)); }
-.bleed figcaption { font-size: clamp(2.6rem, 8vw, 8rem); text-shadow: none; line-height: 1.05; z-index: 2; }
 
 /* Locales */
 .place__grid { margin-top: clamp(50px, 7vw, 100px); }
@@ -79,11 +75,8 @@
   .burger { top: 60%; width: min(50vh, 80vw); }
   .callout { width: 28vw; font-size: clamp(.72rem, 3.2vw, .92rem); }
   .display--xl { font-size: 19vw; }
-  .collection__intro .display { font-size: 17vw; }
   .panel__name { font-size: 11vw; }
   .panel__ghost { font-size: 40vw; }
-  .bleed { height: 70vh; }
-  .bleed figcaption { font-size: 13vw; bottom: 3vh; }
   .footer__big { font-size: 31vw; }
   .loader__logo { width: 76px; height: 74px; }
 }
@@ -103,9 +96,6 @@
 /* Tres toques: tarjetas, números que saltan y platos flotando */
 .how { position: relative; overflow: hidden; }
 .how__title { position: relative; z-index: 2; }
-.how__float { position: absolute; z-index: 1; max-width: none; filter: drop-shadow(0 26px 26px rgba(10, 42, 94, .28)); pointer-events: none; }
-.how__float--a { right: -3vw; top: clamp(30px, 5vw, 90px); width: min(46vw, 640px); }
-.how__float--b { right: clamp(10px, 8vw, 150px); bottom: 18%; width: min(16vw, 220px); }
 .how__steps { position: relative; z-index: 2; }
 .how__steps li {
   position: relative; background: var(--paper); border: 3px solid var(--ink); border-radius: 22px; padding: 26px 24px 28px;
@@ -121,8 +111,6 @@
 }
 .how__modes { position: relative; z-index: 2; }
 @media (max-width: 899px) {
-  .how__float--a { width: 78vw; right: -18vw; top: 70px; opacity: .9; }
-  .how__float--b { width: 26vw; right: 6vw; bottom: 38%; }
   .how__steps { gap: 22px; }
   .how__n { position: absolute; right: 16px; top: 14px; margin: 0; width: 56px; font-size: 2rem; }
   .how__steps li:nth-child(n) { transform: none; }
@@ -155,7 +143,7 @@ button, a, .card, .row, .tab { touch-action: manipulation; }
     content: ''; position: absolute; left: 6%; right: 6%; bottom: -3%; height: 14%; z-index: -1;
     background: radial-gradient(ellipse at center, rgba(10, 42, 94, .32), transparent 70%); filter: none;
   }
-  .how__float, .panel__img img, .card__media img { filter: none; }
+  .panel__img img, .card__media img { filter: none; }
   .burger__layer, .callout, .sticker { will-change: transform; }
   .stage, .collection__panels, .how, .proof, .place { contain: layout paint; }
   .card--offer .card__tag, .panel__offer { animation-duration: 3.2s; }
@@ -165,3 +153,39 @@ button, a, .card, .row, .tab { touch-action: manipulation; }
 .panel__copy { min-width: 0; }
 .panel__name { overflow-wrap: break-word; hyphens: auto; max-width: 100%; font-size: clamp(2.2rem, min(7.4vh, 4.4vw), 5.4rem); }
 @media (max-width: 899px) { .panel__name { font-size: clamp(2rem, 10vw, 3.4rem); } }
+
+
+/* Colección: título grande y desplazamiento más pausado */
+.collection__intro { width: min(78vw, 1100px); }
+.collection__intro .display { font-size: clamp(5rem, 21vh, 16rem); line-height: .98; }
+@media (max-width: 899px) { .collection__intro .display { font-size: 24vw; } }
+
+/* Sombra del hero sin filtros: un filtro sobre un contenedor con capas animadas se repinta en cada fotograma */
+.burger { filter: none; }
+.burger::before {
+  content: ''; position: absolute; left: 4%; right: 4%; bottom: -3%; height: 16%; z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(10, 42, 94, .34), transparent 70%);
+}
+
+/* Para compartir. O no.: fondo cálido, "O no." en rojo y los cuatro platos sueltos a la derecha */
+.bleed { position: relative; height: 92vh; min-height: 560px; overflow: hidden; background: #FFD45C; color: var(--ink); }
+.bleed figcaption { position: absolute; left: var(--gutter); top: 50%; bottom: auto; transform: translateY(-50%); z-index: 3; color: var(--ink); text-shadow: none; font-size: clamp(3rem, 8.4vw, 9rem); line-height: 1.04; }
+.bleed__no { color: #E3200F; }
+.bleed__items { position: absolute; inset: 0; pointer-events: none; }
+.bleed .bleed__item { position: absolute; left: auto; top: auto; max-width: none; height: auto; object-fit: contain; will-change: transform; filter: drop-shadow(0 22px 22px rgba(10, 42, 94, .3)); }
+.bleed .bleed__item--fries1 { right: 30vw; top: 9%; width: min(15vw, 230px); }
+.bleed .bleed__item--fries2 { right: 6vw; top: 15%; width: min(13vw, 200px); }
+.bleed .bleed__item--burger1 { right: 17vw; bottom: 7%; width: min(25vw, 380px); }
+.bleed .bleed__item--burger2 { right: 2vw; bottom: 30%; width: min(21vw, 320px); }
+@media (max-width: 899px) {
+  .bleed { height: 84vh; min-height: 520px; }
+  .bleed figcaption { top: 6%; transform: none; font-size: 15vw; }
+  .bleed .bleed__item { filter: none; }
+  .bleed .bleed__item--fries1 { left: 6vw; right: auto; top: 46%; width: 30vw; }
+  .bleed .bleed__item--fries2 { right: 6vw; top: 40%; width: 26vw; }
+  .bleed .bleed__item--burger1 { left: 8vw; right: auto; bottom: 4%; width: 54vw; }
+  .bleed .bleed__item--burger2 { right: 2vw; bottom: 12%; width: 44vw; }
+}
+
+/* Capas propias para lo que se anima en la entrada y en el scroll del hero */
+.stage__line, .stage__end, .callout { will-change: transform, opacity; }
