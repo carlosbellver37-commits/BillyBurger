@@ -129,3 +129,33 @@
 }
 
 .grid > .card.card--offer, .grid > .card.card--offer:nth-child(14n + 1) { --tone: var(--ketchup); }
+
+/* Sello de autoría, abajo a la derecha. Sube cuando aparece la barra del pedido en móvil. */
+.made-by {
+  position: fixed; z-index: 70; right: max(12px, env(safe-area-inset-right, 0px)); bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  margin: 0; padding: 7px 13px; max-width: calc(100vw - 24px);
+  background: var(--ink); color: var(--paper); border: 1px solid rgba(255, 255, 255, .22); border-radius: 40px;
+  font: 600 .68rem/1.2 var(--font-text); letter-spacing: .02em; white-space: nowrap; pointer-events: none; opacity: .94;
+  box-shadow: 0 6px 18px rgba(10, 42, 94, .28);
+}
+.made-by b { font-weight: 800; color: var(--cheddar); }
+.mobilebar:not([hidden]) ~ .made-by { bottom: calc(max(12px, env(safe-area-inset-bottom, 0px)) + 78px); }
+.footer__row { padding-bottom: 64px; }
+
+/* Móvil: menos trabajo de pintado por fotograma */
+html { -webkit-tap-highlight-color: transparent; }
+button, a, .card, .row, .tab { touch-action: manipulation; }
+@media (max-width: 899px) {
+  .made-by { font-size: .6rem; padding: 6px 11px; }
+  .footer__row { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+  .nav.is-solid { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bone); }
+  .burger { filter: none; }
+  .burger::before {
+    content: ''; position: absolute; left: 6%; right: 6%; bottom: -3%; height: 14%; z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(10, 42, 94, .32), transparent 70%); filter: none;
+  }
+  .how__float, .panel__img img, .card__media img { filter: none; }
+  .burger__layer, .callout, .sticker { will-change: transform; }
+  .stage, .collection__panels, .how, .proof, .place { contain: layout paint; }
+  .card--offer .card__tag, .panel__offer { animation-duration: 3.2s; }
+}

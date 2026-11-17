@@ -29,7 +29,18 @@
   }
 
   function initSmoothScroll() {
-    if (!root.Lenis) return;
+    // En pantallas táctiles el scroll nativo ya es fluido: Lenis solo añadiría trabajo por fotograma.
+    if (!root.Lenis || root.matchMedia('(pointer: coarse)').matches) {
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a || a.getAttribute('href').length < 2) return;
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        root.scrollTo({ top: target.getBoundingClientRect().top + root.scrollY, behavior: 'smooth' });
+      });
+      return;
+    }
     lenis = new root.Lenis({ lerp: 0.11, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     // Las escenas fijadas cambian la altura de la página: Lenis debe recalcular su límite de scroll.
@@ -95,7 +106,7 @@
     };
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * 3.2}`, pin: true, scrub: 0.7, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => `+=${root.innerHeight * (isDesktop ? 3.2 : 2.3)}`, pin: true, scrub: isDesktop ? 0.7 : 0.35, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.to('[data-hero-meta]', { autoAlpha: 0, duration: 0.5 }, 0)
       .to('[data-title-a]', { xPercent: -14, autoAlpha: 0.08, duration: 1 }, 0)
@@ -204,6 +215,8 @@
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
+    // La barra de direcciones del móvil cambia la altura al hacer scroll: sin esto cada cambio recalcula todas las escenas.
+    ScrollTrigger.config({ ignoreMobileResize: true });
     root.history.scrollRestoration = 'manual';
     root.scrollTo(0, 0);
     initSmoothScroll();

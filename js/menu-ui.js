@@ -5,6 +5,7 @@
   const { money, groupsOf } = NT.core;
 
   const imgPath = (name) => `assets/cut/${name}.webp`;
+  const imgSet = (name) => `assets/cut/${name}-sm.webp 600w, assets/cut/${name}.webp 900w`;
   const byId = (id) => NT.MENU.find((m) => m.id === id);
 
   function el(tag, attrs = {}, children = []) {
@@ -36,7 +37,7 @@
         ]),
       ]),
       el('div', { class: 'panel__img' }, [
-        el('img', { src: imgPath(item.img), alt: item.name, loading: 'lazy', 'data-panel-img': '' }),
+        el('img', { src: imgPath(item.img), srcset: imgSet(item.img), sizes: '(max-width: 899px) 80vw, 40vw', alt: item.name, loading: 'lazy', decoding: 'async', 'data-panel-img': '' }),
       ]),
     ]);
   }
@@ -48,7 +49,7 @@
   /* ---------- Carta ---------- */
   function card(item) {
     const media = item.img
-      ? el('div', { class: 'card__media' }, [el('img', { src: imgPath(item.img), alt: '', loading: 'lazy' })])
+      ? el('div', { class: 'card__media' }, [el('img', { src: imgPath(item.img), srcset: imgSet(item.img), sizes: '(max-width: 899px) 50vw, 26vw', alt: '', loading: 'lazy', decoding: 'async' })])
       : el('div', { class: 'card__media card__media--type', 'aria-hidden': 'true', text: item.name.split(' ')[0] });
     const off = item.wasCents ? Math.round((1 - item.cents / item.wasCents) * 100) : 0;
     return el('button', { class: `card${item.cat === 'ofertas' ? ' card--offer' : ''}`, type: 'button', 'data-add': item.id, 'aria-label': `Añadir ${item.name}, ${money(item.cents)}` }, [
